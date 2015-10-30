@@ -1,7 +1,5 @@
-// var board = require("./board");
-// var player = require("./player");
-// var game = require("./game");
-// 
-// module.exports = "Board";
-// module.exports = "Player";
-// module.exports = "Game";
+module.exports = {
+  Board: require("./board"),
+  Player: require("./player"),
+  Game: require("./game")
+}

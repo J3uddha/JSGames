@@ -5,26 +5,8 @@
 function Game (player1, player2) {
   this.player1 = player1,
   this.player2 = player2,
-  this.currentPlayer = player2
-}
-
-Game.prototype.play = function () {
-
-  while (!this.board.won()) {
-    this.changePlayer();
-    move = currentPlayer.makeMove();
-    try {
-      var success = this.board.placeMark(move, currentPlayer.mark);
-    } catch (e) {
-      console.log(e);
-    } finally {
-      if (!success) {
-        this.changePlayer();
-      }
-    }
-  }
-
-  completionCallback(this.currentPlayer);
+  this.currentPlayer = player2,
+  this.board = new Board()
 }
 
 Game.prototype.changePlayer = function () {
@@ -34,6 +16,30 @@ Game.prototype.changePlayer = function () {
     this.currentPlayer = this.player1;
   }
 }
+
+Game.prototype.play = function (completionCallback) {
+  var success;
+
+  while (!this.board.won()) {
+    this.changePlayer();
+    console.clear();
+    .//for Chrome
+    this.board.show();
+    move = this.currentPlayer.makeMove();
+    try {
+      success = this.board.placeMark(move, this.currentPlayer.mark);
+    } catch (e) {
+      console.log(e);
+      this.changePlayer();
+    }
+  }
+
+  this.board.show();
+
+  completionCallback(this.currentPlayer);
+}
+
+
 
 //
 // module.exports = Game;

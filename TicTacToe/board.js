@@ -1,43 +1,58 @@
 function Board () {
-  this.board = [[" ", " ", " "],
+  this.grid = [[" ", " ", " "],
                 [" ", " ", " "],
                 [" ", " ", " "]];
 }
 
 Board.prototype.won = function () {
-  var b = this.board;
+  var g = this.grid;
   for (i = 0; i < 3; i++) {
-    if (b[i][0] == b[i][1] && b[i][0] == b[i][2]) {
-      return true;
-    } else if (b[0][i] == b[1][i] && b[0][i] == b[2][i]) {
-      return true;
+    if (g[i][0] == g[i][1] && g[i][0] == g[i][2]) {
+      if (g[i][0] != " ") {
+        return true;
+      }
+    } else if (g[0][i] == g[1][i] && g[0][i] == g[2][i]) {
+      if (g[0][i] != " ") {
+        return true;
+      }
     }
   }
 
-  if (b[0][0] == b[1][1] && b[1][1] == b[2][2]) {
+  if (g[1][1] == " ") {
+    return false;
+  }
+  if (g[0][0] == g[1][1] && g[1][1] == g[2][2]) {
     return true;
-  } else if (b[2][0] == b[1][1] && b[1][1] == b[0][2]) {
+  } else if (g[2][0] == g[1][1] && g[1][1] == g[0][2]) {
     return true;
   }
   return false;
 }
 
+Board.prototype.empty = function (pos) {
+  return this.grid[pos[0]][pos[1]] == " ";
+}
+
+Board.prototype.placeMark = function (pos, mark) {
+  if (this.empty(pos)) {
+    this.grid[pos[0]][pos[1]] = mark;
+    return true;
+  } else {
+    throw "Invalid move!";
+  }
+}
+
+Board.prototype.show = function () {
+  console.log(this.grid[0]);
+  console.log(this.grid[1]);
+  console.log(this.grid[2]);
+}
+
+//
 // Board.prototype.winner = function () {
 //   if this.won {
 //     //return current player
 //   }
 // }
 
-Board.prototype.empty = function (pos) {
-  return this.board[pos[0]][pos[1]] == " ";
-}
-
-Board.prototype.placeMark = function (pos, mark) {
-  if (this.empty(pos)) {
-    this.board[pos[0]][pos[1]] = mark;
-  } else {
-    throw "Invalid move!";
-  }
-}
-//
 // module.exports = Board;

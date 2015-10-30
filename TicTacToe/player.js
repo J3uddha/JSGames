@@ -1,5 +1,6 @@
-function Player (mark) {
+function Player (mark, name) {
   this.mark = mark;
+  this.name = name;
 }
 
 Player.prototype.makeMove = function () {
